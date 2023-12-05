@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            background: #1D1F20;
+            padding: 30px 30px;
+        }
+
+        #box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+
+        .gradient-border {
+            --borderWidth: 5px;
+            background: white;
+            position: relative;
+            border-radius: var(--borderWidth);
+        }
+
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            top: calc(-1 * var(--borderWidth));
+            left: calc(-1 * var(--borderWidth));
+            height: calc(100% + var(--borderWidth) * 2);
+            width: calc(100% + var(--borderWidth) * 2);
+            background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+            border-radius: calc(2 * var(--borderWidth));
+            z-index: -1;
+            -webkit-animation: animatedgradient 3s ease alternate infinite;
+            animation: animatedgradient 3s ease alternate infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes animatedgradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #create-project-button {
+            height: 2.375rem;
+            min-width: 10rem;
+            margin-left: 1rem;
+            font-size: .9375rem;
+            font-weight: 700;
+            font-style: normal;
+            font-family: adobe-clean, Helvetica, Arial, sans-serif;
+            cursor: pointer;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(50, 110, 200);
+            color: rgb(255, 255, 255);
+            text-shadow: rgb(30, 95, 190) 0px -0.0625rem 0px;
+            border-radius: 5px;
+            border-width: 0px;
+            border-style: initial;
+            border-image: initial;
+            border-color: rgb(30, 95, 190);
+        }
+
+        .express-overlay {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .express-overlay-modal {
+            background-color: #fefefe;
+            margin: 0 auto;
+            padding: 15px;
+            max-width: 43rem;
+            /* min-height: 250px; */
+            border-radius: 5px;
+        }
+
+        .express-header-div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .express-header-text {
+            color: #4b4b4b;
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+            font-weight: 300;
+        }
+
+        .express-header-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .express-header-buttons>a {
+            height: 2.375rem;
+            min-width: 5rem;
+            margin-left: 1rem;
+            font-size: .9375rem;
+            font-weight: 700;
+            font-style: normal;
+            font-family: adobe-clean, Helvetica, Arial, sans-serif;
+            cursor: pointer;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .express-cancel-button {
+            background-color: transparent;
+            border: none;
+            color: rgba(0, 0, 0, .6);
+            transition: color .15s ease-out;
+        }
+
+        .express-save-button {
+            border-radius: 5px;
+            border: 0;
+            border-color: #1e5fbe;
+            background-color: #326ec8;
+            color: #fff;
+            text-shadow: 0 -0.0625rem 0 #1e5fbe;
+        }
+
+        .express-overlay-modal>hr {
+            border: 1px solid rgba(0, 0, 0, .05);
+            border-radius: 5px;
+        }
+
+        .express-url-content {
+            padding: 2.25rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .express-url-header {
+            font-family: adobe-clean, Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: .8125rem;
+            line-height: 1.0625rem;
+            color: #323232;
+        }
+
+        .express-url-enter>input {
+            width: 43rem;
+            margin-top: .5rem;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            box-sizing: border-box;
+            border: .0625rem solid #d0d0d0;
+            border-radius: 0;
+            padding: .625rem;
+            min-width: 6.875rem;
+            height: 2.375rem;
+            font-weight: 400;
+            font-style: normal;
+            vertical-align: top;
+            font-size: .8125rem;
+            line-height: 1.0625rem;
+            background-color: #fff;
+            color: #323232;
+            font-family: adobe-clean, Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; align-items: end; justify-content: space-between">
+        <div id="box" class="gradient-border"> <img id="image-container" height="360" width="1034"
+                style="border-radius: 50px;"> </div>
+        <div style="display: flex"> <button id="create-project-button"> Create Project </button> </div>
+    </div>
+    <div class="express-overlay">
+        <div class="express-overlay-modal">
+            <div class="express-header-div">
+                <div class="express-header-text">Enter Offer Name</div>
+                <div class="express-header-buttons"><a class="express-cancel-button">Cancel</a><a
+                        class="express-save-button ">Save</a></div>
+            </div>
+            <hr>
+            <div class="express-url-content">
+                <div class="express-url-header">Enter the Offer Name</div>
+                <div class="express-url-enter"><input type="text" placeholder="Type Here"></div>
+            </div>
+        </div>
+    </div>
+
+	<script src="https://sdk.cc-embed.adobe.com/v3/CCEverywhere.js"></script>
+    <script type="text/javascript">
+
+        var targetOfferName; 
+        document.querySelector("#create-project-button").addEventListener('click', function () { 
+            document.querySelector(".express-overlay").style.display = "block"; 
+       
+        });
+        document.querySelector(".express-cancel-button").addEventListener('click', function () { 
+            document.querySelector(".express-overlay").style.display = "none"; 
+        }); 
+        document.querySelector(".express-save-button").addEventListener('click', function () { 
+            targetOfferName = document.querySelector(".express-url-enter > input").value;
+            document.querySelector("body > div.express-overlay > div").style.display = "none";
+            document.querySelector("body > div.express-overlay").style.display = "none";
+            load(); 
+        });
+
+
+        var global_base64 = "";
+        var projectId = null;
+        var imageContainer = document.getElementById("image-container");
+
+        function convertImageToBase64(imgUrl, callback) {
+            const image = new Image();
+            image.crossOrigin = 'anonymous';
+            image.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.height = image.naturalHeight;
+                canvas.width = image.naturalWidth;
+                ctx.drawImage(image, 0, 0);
+                const dataUrl = canvas.toDataURL("image/png");
+                callback && callback(dataUrl)
+            }
+            image.src = imgUrl;
+        }
+
+        function UrlFunc() {
+            return new Promise((resolve, reject) => {
+                const imgsrcValue = document.URL.split('imgsrc=')[1];
+                var imageUrl = imgsrcValue;
+                convertImageToBase64(imageUrl, function (base64image) {
+                    global_base64 = base64image
+                    resolve();
+                });
+            });
+        }
+
+        async function LaunchEditor() {
+            await UrlFunc();
+            const ccEverywhere = await window.CCEverywhere.initialize({
+                clientId: "00aec6a13da648bb95fef536b30ced58",
+                appName: "Adobe Target Express Firefly",
+                appVersion: { major: 1, minor: 0 },
+                platformCategory: 'web'
+            });
+            const createDesignCallback = {
+                onCancel: () => { },
+                onPublish: (publishParams) => {
+                    const localData = { project: publishParams.projectId, image: publishParams.asset.data };
+                    imageContainer.src = localData.image;
+                    projectId = localData.project;
+                },
+                onError: (err) => {
+                    console.error('Error received is', err.toString());
+                },
+            };
+
+            ccEverywhere.createDesign(
+                {
+                    callbacks: createDesignCallback,
+                    inputParams: {
+                        asset: {
+                            type: 'image',
+                            dataType: 'base64',
+                            data: global_base64
+                        }
+                    },
+                    outputParams: {
+                        outputType: "base64",
+                    }
+                }
+            );
+        }
+
+        function getImageId() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            var id = urlParams.get('id');
+            console.log(id)
+            document.controller.setValue('/ctx/vars/@id', id);
+        }
+
+
+        function getofferName(str) {
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const day = today.getDate();
+            const year = today.getFullYear();
+            const datestamp = `${month.toString().padStart(2, '0')}${day.toString().padStart(2, '0')}${year}`;
+            return `${targetOfferName}_${str}_${datestamp}`;
+        }
+
+        function load() {
+            var imgSrcFound = setInterval(() => {
+                const offerName = getofferName("ImageOffer")
+                const imgElement = document.createElement('img')
+                const imgSrcCheck = document.getElementById("image-container").src.includes("data")
+
+                var myHeaders = new Headers();
+                myHeaders.append("authorization", "Bearer eyJhbGciOiJSUzI1NiIsIng1dSI6Imltc19uYTEta2V5LWF0LTEuY2VyIiwia2lkIjoiaW1zX25hMS1rZXktYXQtMSIsIml0dCI6ImF0In0.eyJpZCI6IjE2ODQ5MTU5OTcwMDVfODQ5ZTYzNDQtMWJhYy00OGE0LWI4YTAtMDE3YjYwYzQ4YjM3X3VlMSIsIm9yZyI6Ijk3NUQwMTcyNUQ1QTZCMUMwQTQ5NUVGNUBBZG9iZU9yZyIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJjbGllbnRfaWQiOiI0OThjMzgyMDJmMGQ0NzVlYjkwZTM1MjdjZDcwYzY5NiIsInVzZXJfaWQiOiJERTUwMjhCNzY0NTkyRTREMEE0OTVDRDBAdGVjaGFjY3QuYWRvYmUuY29tIiwiYXMiOiJpbXMtbmExIiwiYWFfaWQiOiJERTUwMjhCNzY0NTkyRTREMEE0OTVDRDBAdGVjaGFjY3QuYWRvYmUuY29tIiwiY3RwIjozLCJtb2kiOiJjNzExYmU1NCIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoib3BlbmlkLEFkb2JlSUQsdGFyZ2V0X3NkayxhZGRpdGlvbmFsX2luZm8ucm9sZXMscmVhZF9vcmdhbml6YXRpb25zLGFkZGl0aW9uYWxfaW5mby5wcm9qZWN0ZWRQcm9kdWN0Q29udGV4dCIsImNyZWF0ZWRfYXQiOiIxNjg0OTE1OTk3MDA1In0.EgtViwnnr2LoA8xoGuqhltFxep2_6lSqbu1LJaAMVjMuXLh5jhweLvrHi6pm9Q-otKSCavwJ7mjc3VfXKNQN130gEFlBeaOw7kWDlwBuIPw91ypvbjIj12_NXnvdAw89TXo_T_AsdbFjQxrPJeIUroels-WObMFS1kGrMAgS94J7dYsf5hmM45dzn6NaXRoOWTfSvxKomdCDr4IVS6X6a4k9QylBYl6CGwAVvoi3sI3qzRjxcJ0qvffZZyTyPTeqqZlrGMGG8OCtGnf1zKkL2FrNYZyGVvdWkqDOeMBEUOkm1f2hUfBLU33-z93Dx_LKuT9SHR38pcbMqzu1bzB-dQ");
+                myHeaders.append("cache-control", "no-cache");
+                myHeaders.append("content-type", "application/vnd.adobe.target.v2+json");
+                myHeaders.append("x-api-key", "498c38202f0d475eb90e3527cd70c696");
+
+                if (imgSrcCheck) {
+                    const imgSrc = document.getElementById("image-container").src;
+                    const url = 'https://cors-anywhere.herokuapp.com/https://mc.adobe.io/agisinternal/target/offers/content';
+                    const offerName = getofferName("ImageOffer")
+                    const contentValue = `<img src="${imgSrc}"/>`;
+                    clearInterval(imgSrcFound)
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: JSON.stringify({
+                            name: offerName,
+                            content: contentValue,
+                        }),
+                        redirect: 'follow'
+                    };
+
+                    fetch(url, requestOptions)
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log('result', result);
+                            clearInterval(imgSrcFound)
+                        })
+                        .catch(error => {
+                            console.log("error", error);
+                            clearInterval(imgSrcFound)
+                        });
+                }
+            }, 1000);
+
+            LaunchEditor();
+        }
+
+        async function transfer() {
+            var img = document.getElementById('image-container').src;
+            document.controller.setValue('/ctx/vars/@img', img);
+        }
+
+    </script>
+</body>
+
+</html>
