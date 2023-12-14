@@ -276,9 +276,10 @@
             const createDesignCallback = {
                 onCancel: () => { },
                 onPublish: (publishParams) => {
-                const pageData = { project: publishParams.asset[0].projectId, image: publishParams.asset[0].data };
-        	image_data.src = pageData.image;
-        	project_id = pageData.project;
+                console.log(publishParams)
+	        const localData = { project: publishParams.asset[0].projectId, image: publishParams.asset[0].data };
+	        image_data.src = localData.image;
+	        project_id = localData.project;
                 },
                 onError: (err) => {
                     console.error('Error received is', err.toString());
